@@ -113,6 +113,7 @@ def launch_setup(context, *args, **kwargs):
     # Perception
 
     # Planning
+    # TODO replace with lidar planner
     planning_launch = IncludeLaunchDescription(
         PythonLaunchDescriptionSource(
             launch_file_path=PathJoinSubstitution(
@@ -123,6 +124,19 @@ def launch_setup(context, *args, **kwargs):
             'use_trajectory_loader': LaunchConfiguration('use_trajectory_loader')
         }.items(),
         condition=IfCondition(LaunchConfiguration('launch_planning'))
+    )
+
+    # Lidar planning
+    trajectory_planner_launch = IncludeLaunchDescription(
+        PythonLaunchDescriptionSource(
+            launch_file_path=PathJoinSubstitution(
+                [pkg_prefix,
+                 'launch/components', 'f1tenth_trajectory_planner.launch.py'])),
+        launch_arguments={
+            # 'map_path': LaunchConfiguration('map_path'),
+            # 'use_trajectory_loader': LaunchConfiguration('use_trajectory_loader')
+        }.items(),
+        condition=IfCondition(LaunchConfiguration('launch_trajecotry_planner'))
     )
 
     # Control
@@ -177,6 +191,7 @@ def launch_setup(context, *args, **kwargs):
         system_launch,
         sensing_launch,
         planning_launch,
+        trajectory_planner_launch,
         localization_launch,
         control_launch,
         autoware_api_launch,
@@ -206,6 +221,7 @@ def generate_launch_description():
     add_launch_arg('launch_localization', 'true')
     add_launch_arg('launch_perception', 'false')
     add_launch_arg('launch_planning', 'true')
+    add_launch_arg('launch_trajecotry_planner', 'true')
     add_launch_arg('launch_control', 'true')
     # Global parameters
     add_launch_arg('use_sim_time', 'false')
