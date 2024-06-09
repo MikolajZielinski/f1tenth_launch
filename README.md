@@ -1,7 +1,7 @@
 # f1tenth_launch
 <!-- Required -->
 <!-- Package description -->
-F1TENTH launch files.
+F1TENTH launch files for running autoware with lidar trajectory planner.
 
 ## Installation
 <!-- Required -->
