@@ -35,7 +35,7 @@ def launch_setup(context, *args, **kwargs):
     # )
 
     trajectory_loader_launch = GroupAction([
-        PushRosNamespace('trajectory_planner'),
+        PushRosNamespace('planning'),
         IncludeLaunchDescription(
             PythonLaunchDescriptionSource(
                 launch_file_path=PathJoinSubstitution([
@@ -45,7 +45,7 @@ def launch_setup(context, *args, **kwargs):
             launch_arguments={
                 # 'trajectory_loader_param_file': trajectory_loader_param_file,
                 # 'csv_path': trajectory_csv_path,
-                # 'output_trajectory_topic': 'racing_planner/trajectory'
+                'output_trajectory_topic': 'racing_planner/trajectory'
             }.items(),
             condition=IfCondition(LaunchConfiguration('use_trajectory_loader'))
         )
@@ -65,7 +65,7 @@ def generate_launch_description():
         )
 
     # add_launch_arg('map_path')
-    # add_launch_arg('use_trajectory_loader', 'true')
+    add_launch_arg('use_trajectory_loader', 'true')
 
     return LaunchDescription([
         *declared_arguments,

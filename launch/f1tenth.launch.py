@@ -114,17 +114,17 @@ def launch_setup(context, *args, **kwargs):
 
     # Planning
     # TODO replace with lidar planner
-    planning_launch = IncludeLaunchDescription(
-        PythonLaunchDescriptionSource(
-            launch_file_path=PathJoinSubstitution(
-                [pkg_prefix,
-                 'launch/components', 'f1tenth_planning.launch.py'])),
-        launch_arguments={
-            'map_path': LaunchConfiguration('map_path'),
-            'use_trajectory_loader': LaunchConfiguration('use_trajectory_loader')
-        }.items(),
-        condition=IfCondition(LaunchConfiguration('launch_planning'))
-    )
+    # planning_launch = IncludeLaunchDescription(
+    #     PythonLaunchDescriptionSource(
+    #         launch_file_path=PathJoinSubstitution(
+    #             [pkg_prefix,
+    #              'launch/components', 'f1tenth_planning.launch.py'])),
+    #     launch_arguments={
+    #         'map_path': LaunchConfiguration('map_path'),
+    #         'use_trajectory_loader': LaunchConfiguration('use_trajectory_loader')
+    #     }.items(),
+    #     condition=IfCondition(LaunchConfiguration('launch_planning'))
+    # )
 
     # Lidar planning
     trajectory_planner_launch = IncludeLaunchDescription(
@@ -190,7 +190,7 @@ def launch_setup(context, *args, **kwargs):
         vehicle_launch,
         system_launch,
         sensing_launch,
-        planning_launch,
+        # planning_launch,
         trajectory_planner_launch,
         localization_launch,
         control_launch,
